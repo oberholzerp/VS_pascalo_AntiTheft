@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private AntiTheftService ATS;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,21 +24,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tbActivate.setTextOff("Alarm off. Press to activate!");
         tbActivate.setTextOn("Alarm on. Press to deactivate!");
 
+        ATS = new AntiTheftService();
+
     }
 
     @Override
     public void onClick(View v){
-
+        ToggleButton tb = (ToggleButton) v;
+        if (tb.isChecked()) {
+            tb.setText(R.string.btn_alarm_on);
+            ATS.onDelayStarted();
+        } else {
+            tb.setText(R.string.btn_alarm_off);
+        }
     }
 
 
     public void onClickToggle(View v){
-        ToggleButton tb = (ToggleButton) v;
-        if (tb.isChecked()) {
-            tb.setText(R.string.btn_alarm_on);
-        } else {
-            tb.setText(R.string.btn_alarm_off);
-        }
+
     }
 
 
@@ -47,12 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ToggleButton tb = (ToggleButton) findViewById(R.id.toggleButton);
         if (tb.isChecked()) {
             tb.setText(R.string.btn_alarm_on);
-            IntentService intentService = new IntentService("") {
-                @Override
-                protected void onHandleIntent(Intent intent) {
-
-                }
-            };
+            ATS.onDelayStarted();
         } else {
             tb.setText(R.string.btn_alarm_off);
         }
