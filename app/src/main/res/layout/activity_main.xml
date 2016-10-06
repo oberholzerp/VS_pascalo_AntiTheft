@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:id="@+id/toggleButton1"
+        android:id="@+id/toggleButton"
         android:layout_alignParentEnd="true" />
 
 

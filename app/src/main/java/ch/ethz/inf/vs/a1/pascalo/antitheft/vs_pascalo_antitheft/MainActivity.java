@@ -15,17 +15,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
 
-        ToggleButton tbActivate = (ToggleButton) findViewById(R.id.toggleButton1);
+        ToggleButton tbActivate = (ToggleButton) findViewById(R.id.toggleButton);
         tbActivate.setOnClickListener(this);
+        tbActivate.setTextOff("Alarm off. Press to activate!");
+        tbActivate.setTextOn("Alarm on. Press to deactivate!");
     }
 
+    @Override
     public void onClick(View v){
 
     }
 
-    public void onClickTest(View v){
-        ((Button) v).setText(R.string.btn_alarm_on);
-    }
 
     public void onClickToggle(View v){
         ToggleButton tb = (ToggleButton) v;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        ToggleButton tb = (ToggleButton) findViewById(R.id.toggleButton1);
+        ToggleButton tb = (ToggleButton) findViewById(R.id.toggleButton);
         if (tb.isChecked()) {
             tb.setText(R.string.btn_alarm_on);
         } else {
