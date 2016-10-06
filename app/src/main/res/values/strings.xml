@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VS_pascalo_AntiTheft</string>
+    <string name="btn_alarm_off">Alarm Off. Press to activate!</string>
+    <string name="btn_alarm_on">Alarm On. Press to deactivate!</string>
+</resources>
