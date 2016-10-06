@@ -1,5 +1,7 @@
 package ch.ethz.inf.vs.a1.pascalo.antitheft.vs_pascalo_antitheft;
 
+import android.app.IntentService;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tbActivate.setOnClickListener(this);
         tbActivate.setTextOff("Alarm off. Press to activate!");
         tbActivate.setTextOn("Alarm on. Press to deactivate!");
+
     }
 
     @Override
@@ -44,6 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ToggleButton tb = (ToggleButton) findViewById(R.id.toggleButton);
         if (tb.isChecked()) {
             tb.setText(R.string.btn_alarm_on);
+            IntentService intentService = new IntentService("") {
+                @Override
+                protected void onHandleIntent(Intent intent) {
+
+                }
+            };
         } else {
             tb.setText(R.string.btn_alarm_off);
         }
