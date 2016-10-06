@@ -19,7 +19,9 @@
         <service
             android:name=".AntiTheftService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".SettingsActivity" />
     </application>
 
 </manifest>

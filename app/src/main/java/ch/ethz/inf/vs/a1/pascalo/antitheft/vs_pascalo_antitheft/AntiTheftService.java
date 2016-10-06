@@ -28,7 +28,7 @@ public class AntiTheftService extends Service implements AlarmCallback {
         //create a notification
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
-                .setSmallIcon(0)
+                .setSmallIcon(1)
                 .setContentTitle("Test")
                 .setContentText("Test");
 

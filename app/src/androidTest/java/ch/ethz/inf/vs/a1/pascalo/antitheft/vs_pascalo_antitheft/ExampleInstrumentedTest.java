@@ -86,7 +86,7 @@ public class ExampleInstrumentedTest {
         }
 
         @Override
-        public void onTimeoutStarted() {
+        public void onDelayStarted() {
             // Do not do anything
         }
     }
