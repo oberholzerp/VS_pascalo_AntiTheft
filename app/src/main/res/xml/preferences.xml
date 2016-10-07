@@ -3,16 +3,24 @@
 
 
     <PreferenceCategory
-        android:title="inline_preferences">
+        android:title="@string/settings"
+        android:key="pref_settings">
+
+        <CheckBoxPreference
+            android:key="pref_sync"
+                android:title="pref_sync"
+                android:summary="pref_sync_sum"
+                android:defaultValue="true" />
+
 
         <ListPreference
+            android:dependency="pref_sync"
             android:key="sensitivity"
             android:title="@string/sensitivity_title"
-            android:summary="@string/sensitivity_summary"
+            android:dialogTitle="@string/sensitivity_summary"
             android:entries="@array/sensitivity_string_array"
             android:entryValues="@array/sensitivity_integer_array"
-            android:defaultValue="1"
-            android:order="1"/>
+            />
 
 
     </PreferenceCategory>

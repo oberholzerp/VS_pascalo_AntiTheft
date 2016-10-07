@@ -34,7 +34,7 @@ public class AntiTheftService extends Service implements AlarmCallback {
 
         Intent resultIntent = new Intent(this, MainActivity.class);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+/*        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(MainActivity.class);
         // Adds the Intent that starts the Activity to the top of the stack
@@ -44,17 +44,17 @@ public class AntiTheftService extends Service implements AlarmCallback {
 
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
-                        0,
+                        1,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
 
-        builder.setContentIntent(resultPendingIntent);
+        builder.setContentIntent(resultPendingIntent); */
 
         //create notification manager
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         //show builded notification
-        notificationManager.notify(0, builder.build());
+        notificationManager.notify(1, builder.build());
     }
 }
