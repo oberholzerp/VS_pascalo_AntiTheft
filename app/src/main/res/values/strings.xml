@@ -3,4 +3,6 @@
     <string name="btn_alarm_off">Alarm Off. Press to activate!</string>
     <string name="btn_alarm_on">Alarm On. Press to deactivate!</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_seekBar">Volume:</string>
+    <string name="title_number_field">Delay:</string>
 </resources>

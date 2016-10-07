@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--
+
+
     <PreferenceCategory
-        android:title="@string/inline_preferences">
+        android:title="inline_preferences">
 
         <CheckBoxPreference
             android:key="checkbox_preference"
-            android:title="@string/title_checkbox_preference"
-            android:summary="@string/summary_checkbox_preference" />
+            android:title="title_checkbox_preference"
+            android:summary="summary_checkbox_preference" />
+
+
 
     </PreferenceCategory>
 
-    <PreferenceCategory
+<!--    <PreferenceCategory
         android:title="@string/dialog_based_preferences">
 
         <EditTextPreference
