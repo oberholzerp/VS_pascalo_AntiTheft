@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tbActivate.setTextOff("Alarm off. Press to activate!");
         tbActivate.setTextOn("Alarm on. Press to deactivate!");
 
-        //initialize settings button
-        Button btnSettings = (Button) findViewById(R.id.btn_settings);
-        btnSettings.setOnClickListener(this);
 
         ATS = new AntiTheftService();
 
@@ -55,19 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     tb.setText(R.string.btn_alarm_off);
                 }
                 break;
-            case (R.id.btn_settings) :
-                Intent myIntent = new Intent(this, SettingsActivity.class);
-                this.startActivity(myIntent);
-
-                boolean value = true;
-                SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
-                editor.putBoolean("key_stored_boolean", value);
-                editor.apply();
-
-
-                // Retrieve stored value
-                boolean val = getPreferences(Context.MODE_PRIVATE).getBoolean("key_stored_boolean",
-                        false);
         }
     }
 
@@ -115,4 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
+
+
+
 }
