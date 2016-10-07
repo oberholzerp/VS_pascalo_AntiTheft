@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private AntiTheftService ATS;
 
-    private final String KEY_PREF_AUDIO_LOOP = "audio_loop";
+//    private final String KEY_PREF_AUDIO_LOOP = "audio_loop";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ATS = new AntiTheftService();
 
-
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
 
@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(KEY_PREF_AUDIO_LOOP)){
+        if (key.equals("sensitivity")){
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-            boolean loop = sharedPref.getBoolean(KEY_PREF_AUDIO_LOOP, true);
+            int threshold = sharedPref.getInt("sensitivity", 1);
 
         }
     }
