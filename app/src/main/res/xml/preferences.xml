@@ -20,7 +20,7 @@
             android:dialogTitle="@string/sensitivity_summary"
             android:entries="@array/sensitivity_string_array"
             android:entryValues="@array/sensitivity_integer_array"
-            />
+            android:defaultValue="5" />
 
 
     </PreferenceCategory>
