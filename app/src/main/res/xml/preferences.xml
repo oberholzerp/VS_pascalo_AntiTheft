@@ -6,21 +6,21 @@
         android:title="@string/settings"
         android:key="pref_settings">
 
-        <CheckBoxPreference
-            android:key="pref_sync"
-                android:title="pref_sync"
-                android:summary="pref_sync_sum"
-                android:defaultValue="true" />
-
-
         <ListPreference
-            android:dependency="pref_sync"
             android:key="sensitivity"
             android:title="@string/sensitivity_title"
             android:dialogTitle="@string/sensitivity_summary"
             android:entries="@array/sensitivity_string_array"
-            android:entryValues="@array/sensitivity_integer_array"
+            android:entryValues="@array/sensitivity_value_array"
             android:defaultValue="1" />
+
+        <ListPreference
+            android:key="delay"
+            android:title="@string/delay_title"
+            android:dialogTitle="@string/delay_summary"
+            android:entries="@array/delay_string_array"
+            android:entryValues="@array/delay_value_array"
+            android:defaultValue="10" />
 
 
     </PreferenceCategory>

@@ -1,10 +1,12 @@
 package ch.ethz.inf.vs.a1.pascalo.antitheft.vs_pascalo_antitheft;
 
 import android.app.IntentService;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener{
 
     private AntiTheftService ATS;
+    private int threshold;
+    private int delaytime;
 
 //    private final String KEY_PREF_AUDIO_LOOP = "audio_loop";
 
@@ -47,9 +51,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ToggleButton tb = (ToggleButton) v;
                 if (tb.isChecked()) {
                     tb.setText(R.string.btn_alarm_on);
-                    //ATS.onDelayStarted();
+                    Intent serviceIntent = new Intent(this, AntiTheftService.class);
+                    serviceIntent.putExtra("threshold", threshold);
+                    serviceIntent.putExtra("delay", delaytime);
+                    startService(serviceIntent);
                 } else {
                     tb.setText(R.string.btn_alarm_off);
+                    Intent serviceIntent = new Intent(this, AntiTheftService.class);
+                    stopService(serviceIntent);
                 }
                 break;
         }
@@ -68,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ToggleButton tb = (ToggleButton) findViewById(R.id.toggleButton);
         if (tb.isChecked()) {
             tb.setText(R.string.btn_alarm_on);
-            //ATS.onDelayStarted();
         } else {
             tb.setText(R.string.btn_alarm_off);
         }
@@ -76,9 +84,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         if (key.equals("sensitivity")){
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-            int threshold = sharedPref.getInt("sensitivity", 1);
+
+            String thresh = sharedPref.getString(key, "1");
+            threshold = Integer.parseInt(thresh);
+
+        } else if (key.equals("delay")){
+
+            String delay = sharedPref.getString(key, "10");
+            delaytime = Integer.parseInt(delay);
 
         }
     }
