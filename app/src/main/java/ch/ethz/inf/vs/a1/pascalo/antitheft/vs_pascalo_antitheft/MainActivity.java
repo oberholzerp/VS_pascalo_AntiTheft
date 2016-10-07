@@ -1,5 +1,6 @@
 package ch.ethz.inf.vs.a1.pascalo.antitheft.vs_pascalo_antitheft;
 
+import android.app.ActivityManager;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -65,6 +66,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void onClickToggle(View v){
 
     }
@@ -75,9 +86,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
 
         ToggleButton tb = (ToggleButton) findViewById(R.id.toggleButton);
-        if (tb.isChecked()) {
+        if (isMyServiceRunning(AntiTheftService.class)) {
+            tb.setChecked(true);
             tb.setText(R.string.btn_alarm_on);
         } else {
+            tb.setChecked(false);
             tb.setText(R.string.btn_alarm_off);
         }
     }
