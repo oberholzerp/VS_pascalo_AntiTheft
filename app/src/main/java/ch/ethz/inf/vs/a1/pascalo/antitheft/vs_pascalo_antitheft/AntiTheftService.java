@@ -150,7 +150,6 @@ public class AntiTheftService extends Service implements AlarmCallback {
         //stop any scheduled alarms
         if (alarmScheduler != null) { alarmScheduler.cancel(); }
 
-        mp.pause();
         mp.stop();
         mp.release();
     }
