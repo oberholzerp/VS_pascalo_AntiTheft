@@ -22,6 +22,11 @@
             android:entryValues="@array/delay_value_array"
             android:defaultValue="10" />
 
+        <CheckBoxPreference
+            android:title="Improved movement detection"
+            android:key="improved"
+            android:summary="Check if you want to use the improved movement detection, using the gyroscope instead of the acceleration sensor."
+            android:defaultValue="true"/>
 
     </PreferenceCategory>
 

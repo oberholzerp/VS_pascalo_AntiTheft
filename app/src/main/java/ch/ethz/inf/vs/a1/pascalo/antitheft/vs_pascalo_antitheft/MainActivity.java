@@ -54,11 +54,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             "delay",
                             getResources().getStringArray(R.array.delay_value_array)[1]
                     );
+                    boolean improved = sharedPref.getBoolean(
+                            "improved",
+                            true
+                    );
 
                     tb.setText(R.string.btn_alarm_on);
                     Intent serviceIntent = new Intent(this, AntiTheftService.class);
                     serviceIntent.putExtra("threshold", Integer.parseInt(thresh));
                     serviceIntent.putExtra("delay", Integer.parseInt(delay));
+                    serviceIntent.putExtra("improved", improved);
                     startService(serviceIntent);
                 } else {
                     tb.setText(R.string.btn_alarm_off);

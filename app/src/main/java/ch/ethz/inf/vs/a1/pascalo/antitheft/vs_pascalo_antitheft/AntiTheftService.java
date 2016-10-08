@@ -91,11 +91,19 @@ public class AntiTheftService extends Service implements AlarmCallback {
         notificationManager.notify(17, builder.build());
 
         //create movement detector
-        movementDetector = new SpikeMovementDetector(this, sensitivity);
-
-        //register movement detector to listen to the sensor
         SensorManager sm = (SensorManager)getSystemService(SENSOR_SERVICE);
-        Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        Sensor sensor;
+
+        if (intent.getBooleanExtra("improved", true)) {
+            movementDetector = new MyMovementDetector(this, sensitivity);
+            sensor = sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        }
+        else {
+            movementDetector = new SpikeMovementDetector(this, sensitivity);
+            sensor = sm.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        }
+
+        // register movement detector to listen to the sensor
         sm.registerListener(movementDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         return START_REDELIVER_INTENT;
