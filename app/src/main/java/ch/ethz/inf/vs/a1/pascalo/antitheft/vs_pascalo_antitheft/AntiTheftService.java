@@ -30,6 +30,7 @@ public class AntiTheftService extends Service implements AlarmCallback {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent == null) { Log.d("AntiTheftService", "called onStartCommand with a NULL intent. Sensitivity is " + String.valueOf(sensitivity)); }
         delay = intent.getIntExtra(
                 "delay",
                 Integer.parseInt(getResources().getStringArray(R.array.delay_value_array)[1])
@@ -82,7 +83,7 @@ public class AntiTheftService extends Service implements AlarmCallback {
         Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         sm.registerListener(movementDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-        return START_STICKY;
+        return START_REDELIVER_INTENT;
     }
 
     @Nullable
