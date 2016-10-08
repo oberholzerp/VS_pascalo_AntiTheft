@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.TextView;
 
@@ -106,24 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        /*SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (key.equals("sensitivity")){
-
-            String thresh = sharedPref.getString(
-                    key,
-                    getResources().getStringArray(R.array.sensitivity_value_array)[1]
-            );
-            threshold = Integer.parseInt(thresh);
-
-        } else if (key.equals("delay")){
-
-            String delay = sharedPref.getString(
-                    key,
-                    getResources().getStringArray(R.array.delay_value_array)[1]
-            );
-            delaytime = Integer.parseInt(delay);
-
-        }*/
+        if (isMyServiceRunning(AntiTheftService.class)) {
+            Toast.makeText(getApplicationContext(), "The changes will only be apllied after unlocking the device.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
