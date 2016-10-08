@@ -10,7 +10,8 @@ public class SpikeMovementDetector extends AbstractMovementDetector {
 
     @Override
     public boolean doAlarmLogic(float[] values) {
-		// TODO, insert your logic here
-        return false;
+        // Using absolute elementwise sum as suggested in the project descriptions
+        // Better approach: using elemtentwise quadratic sum instead
+        return( Math.abs(values[0]) + Math.abs(values[1]) + Math.abs(values[2]) > sensitivity);
     }
 }

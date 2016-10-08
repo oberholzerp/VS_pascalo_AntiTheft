@@ -22,7 +22,8 @@ public class AntiTheftService extends Service implements AlarmCallback {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(android.R.drawable.ic_secure)
                         .setContentTitle("Test")
-                        .setContentText("Test");
+                        .setContentText("Test")
+                        .setOngoing(true);
 
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, MainActivity.class);
