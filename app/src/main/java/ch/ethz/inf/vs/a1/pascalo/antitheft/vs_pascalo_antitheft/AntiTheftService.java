@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -27,6 +29,19 @@ public class AntiTheftService extends Service implements AlarmCallback {
     private int sensitivity;
     private AbstractMovementDetector movementDetector;
     private TimerTask alarmScheduler;
+    private MediaPlayer mp;
+
+    @Override
+    public void onCreate() {
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.loop);
+        mp.setLooping(true);
+        mp.setAudioAttributes(
+                new AudioAttributes.Builder()
+                        .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
+                        .build()
+        );
+
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -105,7 +120,7 @@ public class AntiTheftService extends Service implements AlarmCallback {
             @Override
             public void run() {
                 Log.d("AntiTheftService", "Alarm! Delay is " + String.valueOf(delay));
-
+                mp.start();
             }
         };
         new Timer().schedule(alarmScheduler, delay*1000);
@@ -126,5 +141,9 @@ public class AntiTheftService extends Service implements AlarmCallback {
 
         //stop any scheduled alarms
         if (alarmScheduler != null) { alarmScheduler.cancel(); }
+
+        mp.pause();
+        mp.stop();
+        mp.release();
     }
 }
