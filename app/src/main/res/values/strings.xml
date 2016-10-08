@@ -13,9 +13,6 @@
 
 
 
-
-
-
     <string-array name="sensitivity_string_array">
         <item>Low</item>
         <item>Medium</item>
