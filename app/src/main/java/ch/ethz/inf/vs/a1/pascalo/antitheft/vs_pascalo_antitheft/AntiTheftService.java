@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -30,18 +31,6 @@ public class AntiTheftService extends Service implements AlarmCallback {
     private AbstractMovementDetector movementDetector;
     private TimerTask alarmScheduler;
     private MediaPlayer mp;
-
-    @Override
-    public void onCreate() {
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.loop);
-        mp.setLooping(true);
-        mp.setAudioAttributes(
-                new AudioAttributes.Builder()
-                        .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
-                        .build()
-        );
-
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -89,6 +78,17 @@ public class AntiTheftService extends Service implements AlarmCallback {
 
         //show built notification
         notificationManager.notify(17, builder.build());
+
+        //create media player
+        AudioManager am = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+
+        mp = MediaPlayer.create(
+                getApplicationContext(),
+                R.raw.loop
+                //, new AudioAttributes.Builder().setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED).build(),
+                //am.generateAudioSessionId()
+        );
+        mp.setLooping(true);
 
         //create movement detector
         SensorManager sm = (SensorManager)getSystemService(SENSOR_SERVICE);
