@@ -19,11 +19,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener{
 
-    private int threshold;
-    private int delaytime;
-
-//    private final String KEY_PREF_AUDIO_LOOP = "audio_loop";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +38,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v){
+
         switch (v.getId()) {
             case (R.id.toggleButton) :
                 ToggleButton tb = (ToggleButton) v;
                 if (tb.isChecked()) {
+
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+                    String thresh = sharedPref.getString(
+                            "sensitivity",
+                            getResources().getStringArray(R.array.sensitivity_value_array)[1]
+                    );
+                    String delay = sharedPref.getString(
+                            "delay",
+                            getResources().getStringArray(R.array.delay_value_array)[1]
+                    );
+
                     tb.setText(R.string.btn_alarm_on);
                     Intent serviceIntent = new Intent(this, AntiTheftService.class);
-                    serviceIntent.putExtra("threshold", threshold);
-                    serviceIntent.putExtra("delay", delaytime);
+                    serviceIntent.putExtra("threshold", Integer.parseInt(thresh));
+                    serviceIntent.putExtra("delay", Integer.parseInt(delay));
                     startService(serviceIntent);
                 } else {
                     tb.setText(R.string.btn_alarm_off);
@@ -93,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        /*SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         if (key.equals("sensitivity")){
 
             String thresh = sharedPref.getString(
@@ -110,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             );
             delaytime = Integer.parseInt(delay);
 
-        }
+        }*/
     }
 
     @Override

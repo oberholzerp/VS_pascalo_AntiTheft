@@ -17,11 +17,16 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class AntiTheftService extends Service implements AlarmCallback {
 
     private int delay;
     private int sensitivity;
+    private AbstractMovementDetector movementDetector;
+    private TimerTask alarmScheduler;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -70,7 +75,7 @@ public class AntiTheftService extends Service implements AlarmCallback {
         notificationManager.notify(17, builder.build());
 
         //create movement detector
-        AbstractMovementDetector movementDetector = new SpikeMovementDetector(this, sensitivity);
+        movementDetector = new SpikeMovementDetector(this, sensitivity);
 
         //register movement detector to listen to the sensor
         SensorManager sm = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -90,7 +95,21 @@ public class AntiTheftService extends Service implements AlarmCallback {
     @Override
     public void onDelayStarted() {
         Log.d("AntiTheftService", "onDelayStarted started");
-        SystemClock.sleep(delay*1000);
+
+        // unregister sensor listener
+        SensorManager sm = (SensorManager)getSystemService(SENSOR_SERVICE);
+        sm.unregisterListener(movementDetector);
+
+        alarmScheduler = new TimerTask() {
+            @Override
+            public void run() {
+                Log.d("AntiTheftService", "Alarm! Delay is " + String.valueOf(delay));
+
+            }
+        };
+        new Timer().schedule(alarmScheduler, delay*1000);
+
+
     }
 
     @Override
@@ -99,5 +118,12 @@ public class AntiTheftService extends Service implements AlarmCallback {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(17);
+
+        // unregister sensor listener
+        SensorManager sm = (SensorManager)getSystemService(SENSOR_SERVICE);
+        sm.unregisterListener(movementDetector);
+
+        //stop any scheduled alarms
+        alarmScheduler.cancel();
     }
 }
