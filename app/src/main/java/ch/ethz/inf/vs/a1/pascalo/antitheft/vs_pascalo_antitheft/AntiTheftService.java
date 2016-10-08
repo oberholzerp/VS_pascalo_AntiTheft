@@ -124,6 +124,6 @@ public class AntiTheftService extends Service implements AlarmCallback {
         sm.unregisterListener(movementDetector);
 
         //stop any scheduled alarms
-        alarmScheduler.cancel();
+        if (alarmScheduler != null) { alarmScheduler.cancel(); }
     }
 }
